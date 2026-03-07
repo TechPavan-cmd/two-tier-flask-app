@@ -3,15 +3,16 @@ pipeline {
 
     stages {
 
-        stage('Install Dependencies') {
+        stage('Deploy') {
             steps {
-                sh 'pip3 install -r requirements.txt'
-            }
-        }
-
-        stage('Run Flask App') {
-            steps {
-                sh 'nohup python3 app.py &'
+                sh '''
+                ssh root@151.242.51.151 "
+                cd /opt/two-tier-flask-app &&
+                git pull &&
+                pkill -f app.py || true &&
+                nohup python3 app.py > app.log 2>&1 &
+                "
+                '''
             }
         }
 
