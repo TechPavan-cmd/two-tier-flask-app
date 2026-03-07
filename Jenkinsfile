@@ -3,10 +3,34 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/TechPavan-cmd/two-tier-flask-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
+
+        stage('Test Application') {
+            steps {
+                sh 'python3 -m py_compile app.py'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo "Build step completed"'
+            }
+        }
+
         stage('Deploy') {
             steps {
                 sh '''
-                ssh -p 2550 root@151.242.51.151 "
+                ssh -p 2222 root@151.242.51.151 "
                 cd /opt/two-tier-flask-app &&
                 git pull &&
                 pkill -f app.py || true &&
