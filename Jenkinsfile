@@ -3,21 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
+        stage('Install Dependencies') {
             steps {
-                git 'https://github.com/username/project.git'
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
-        stage('Install') {
+        stage('Run Flask App') {
             steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                sh 'pm2 restart app || pm2 start app.js'
+                sh 'nohup python3 app.py &'
             }
         }
 
