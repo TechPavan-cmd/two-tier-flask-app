@@ -6,7 +6,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                ssh -p 2550 PORT root@151.242.51.151 "
+                ssh -p 2550 root@151.242.51.151 "
                 cd /opt/two-tier-flask-app &&
                 git pull &&
                 pkill -f app.py || true &&
