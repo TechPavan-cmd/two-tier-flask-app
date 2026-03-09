@@ -26,16 +26,16 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-cd /opt/two-tier-flask-app
-git pull
-pkill -f app.py || true
-pm2 stop app.py
-export MYSQL_HOST=localhost
-export MYSQL_USER=root
-export MYSQL_PASSWORD=''
-export MYSQL_DB=flaskapp
-pm2 start app.py
-pm2 status app.py
+cd /opt/two-tier-flask-app;
+git pull;
+pkill -f app.py || true;
+pm2 stop app.py;
+export MYSQL_HOST=localhost;
+export MYSQL_USER=root;
+export MYSQL_PASSWORD='';
+export MYSQL_DB=flaskapp;
+pm2 start app.py;
+pm2 status app.py;
                 '''
             }
         }
