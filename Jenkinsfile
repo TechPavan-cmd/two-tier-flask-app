@@ -26,12 +26,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                git pull
-                cd /opt/two-tier-flask-app &&
-                git pull &&
-                pkill -f app.py || true &&
-                pm2 stop app || true &&
-                pm2 start app
+                cd /opt/two-tier-flask-app
+                git pull origin main
+                pkill -f app.py || true
+                pm2 stop app || true
                 pm2 start app
                 '''
     }
