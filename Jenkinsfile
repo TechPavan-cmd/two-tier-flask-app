@@ -9,8 +9,6 @@ pipeline {
             }
         }
 
-       
-
         stage('Test Application') {
             steps {
                 sh 'python3 -m py_compile app.py'
@@ -28,12 +26,14 @@ pipeline {
                 sh '''
                 cd /opt/two-tier-flask-app
                 git pull origin main
+
                 pkill -f app.py || true
-                pm2 stop app || true
-                pm2 start app
+                pm2 delete app || true
+
+                pm2 start app.py --name app --interpreter python3
                 '''
-    }
-}
+            }
+        }
 
     }
 }
